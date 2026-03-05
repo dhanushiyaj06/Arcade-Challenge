@@ -3,16 +3,66 @@
 #include <cstdlib>
 #include <ctime>
 using namespace std;
-
+int l=1;
+int u=100;
 string checkGuess(int secret, int guess) {
-
+    if(guess>secret)
+    {
+        return "LOW";
+    }
+    else if(guess<secret)
+    {
+        return "HIGH";
+    }
+    else
+    {
+        return "CORRECT";
+    }
 }
 
 int calculateScore(int attempts) {
-
+if(attempts<=3)
+{
+    return 100;
+}
+else if(attempts<=6)
+{
+    return 70;
+}
+else if(attempts<=10)
+{
+    return 40;
+}
+else
+{
+    return 10;
+}
 }
 
-string giveHint(int secret, vector<int> history) {
+string giveHint(int secret, vector<int> history)
+{
+    int v=history.back();
+    int diff=abs(v-secret);
+    if(diff<=5)
+    {
+        return "Very Close!";
+    }
+    else if(diff<=10)
+    {
+        return "Close!";
+    }
+    else
+    {
+        if(v<secret)
+        {
+            l=v+1;
+        }
+        else
+        {
+            u=v-1;
+        }
+        return "Try between "+to_string(l)+" and "+to_string(u);
+    }
 }
 
 
